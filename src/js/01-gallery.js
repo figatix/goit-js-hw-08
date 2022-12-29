@@ -1,5 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const imagesMarkup = galleryItems.map(({ preview, original, description }) => {
   return `<a class="gallery__item" href = "${original}">
