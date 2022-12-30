@@ -18,11 +18,9 @@ function fillFormFields() {
 
 fillFormFields()
 
-
 function onInputText(e) {
   resultObj[e.target.name] = e.target.value
-  const objStr = JSON.stringify(resultObj)
-  localStorage.setItem('feedback-form-state', objStr)
+  localStorage.setItem('feedback-form-state', JSON.stringify(resultObj));
 }
 
 function onSubmit(e) {
