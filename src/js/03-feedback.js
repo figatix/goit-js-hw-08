@@ -25,7 +25,7 @@ function onInputText(e) {
 
 function onSubmit(e) {
   e.preventDefault()
-  console.dir(JSON.parse(localStorage.getItem('feedback-form-state')))
+  console.log(JSON.parse(localStorage.getItem('feedback-form-state')))
   localStorage.removeItem('feedback-form-state')
   formEl.reset()
 }
