@@ -1,10 +1,8 @@
 import Vimeo from '@vimeo/player'
 const throttle = require('lodash.throttle');
 
-
 const iframe = document.querySelector('#vimeo-player');
 const player = new Vimeo(iframe);
-
 
 const onTimeupdateThrottle = throttle(onTimeupdate, 1000)
 
@@ -15,20 +13,22 @@ function onTimeupdate(e) {
 
 player.on('timeupdate', onTimeupdateThrottle)
 
-const currentTimeLastView = localStorage.getItem('videoplayer-current-time');
-
 try {
-  const parseCurrentTimeLastView = JSON.parse(currentTimeLastView);
-  const currentSecondLastView = parseCurrentTimeLastView.seconds
+  let currentTimeLastView = localStorage.getItem('videoplayer-current-time');
 
-  player.setCurrentTime(currentSecondLastView).then(function(seconds) {}).catch(function(error) {
-    switch (error.name) {
-      case 'RangeError':
+  if (currentTimeLastView !== null) {
+    currentTimeLastView = JSON.parse(currentTimeLastView);
+    const currentSecondLastView = currentTimeLastView.seconds
+
+    player.setCurrentTime(currentSecondLastView).then(function (seconds) { }).catch(function (error) {
+      switch (error.name) {
+        case 'RangeError':
           break;
-      default:
+        default:
           break;
-    }
-  });
+      }
+    });
+  }
 } catch (err) {
   console.log(err);
 }
