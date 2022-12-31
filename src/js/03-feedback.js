@@ -5,15 +5,16 @@ const formEl = document.querySelector('.feedback-form')
 const resultObj = {}
 
 function fillFormFields() {
-  const formInfoLS =  JSON.parse(localStorage.getItem('feedback-form-state'))
+  let formInfoLS = localStorage.getItem('feedback-form-state');
 
-  if (!formInfoLS) {
-    return
-  }
-
-  for (let prop in formInfoLS) {
-    formEl.elements[prop].value = formInfoLS[prop];
-  }
+  if (formInfoLS) {
+    formInfoLS = JSON.parse(formInfoLS)
+    
+    Object.entries(formInfoLS).forEach(([name, value]) => {
+      resultObj[name] = value;
+      formEl.elements[name].value = value;
+    })
+  } 
 }
 
 fillFormFields()
