@@ -1,34 +1,34 @@
-
+const LOCAL_STORAGE_KEY = 'feedback-form-state'
 const throttle = require('lodash.throttle');
 
 const formEl = document.querySelector('.feedback-form')
-const resultObj = {}
 
 function fillFormFields() {
-  let formInfoLS = localStorage.getItem('feedback-form-state');
+  let formInfoLS = localStorage.getItem(LOCAL_STORAGE_KEY);
 
   if (formInfoLS) {
     formInfoLS = JSON.parse(formInfoLS)
-    
     Object.entries(formInfoLS).forEach(([name, value]) => {
-      resultObj[name] = value;
       formEl.elements[name].value = value;
     })
   } 
 }
-
 fillFormFields()
 
 function onInputText(e) {
-  resultObj[e.target.name] = e.target.value
-  localStorage.setItem('feedback-form-state', JSON.stringify(resultObj));
+  let userInfoLS = localStorage.getItem(LOCAL_STORAGE_KEY)
+  userInfoLS = userInfoLS ? JSON.parse(userInfoLS) : {};
+  userInfoLS[e.target.name] = e.target.value
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userInfoLS))
 }
 
 function onSubmit(e) {
   e.preventDefault()
-  console.log(JSON.parse(localStorage.getItem('feedback-form-state')))
-  localStorage.removeItem('feedback-form-state')
-  formEl.reset()
+  if (formEl.elements.message.value && formEl.elements.email.value) {
+    console.log(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)))
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
+    formEl.reset()
+  }
 }
 
 const onInputTextThrottle = throttle(onInputText, 500);
