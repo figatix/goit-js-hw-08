@@ -20,14 +20,7 @@ try {
     currentTimeLastView = JSON.parse(currentTimeLastView);
     const currentSecondLastView = currentTimeLastView.seconds
 
-    player.setCurrentTime(currentSecondLastView).then(function (seconds) { }).catch(function (error) {
-      switch (error.name) {
-        case 'RangeError':
-          break;
-        default:
-          break;
-      }
-    });
+    player.setCurrentTime(currentSecondLastView)
   }
 } catch (err) {
   console.log(err);
